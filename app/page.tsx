@@ -143,8 +143,6 @@ export default function Home() {
           <div className="relative z-10 flex min-h-screen items-center justify-center px-6 transition-all duration-700">
             <Header />
             <HomePage />
-            
-       
           </div>
 
           <section className="relative z-10 ">
@@ -188,12 +186,12 @@ export default function Home() {
             </div>
             <ExperienceSection />
           </section>
-                    <section className="relative z-10 min-h-screen">
-            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
-              <Wrench size={18} />
-              <span className="text-sm uppercase tracking-[0.3em]">Contract</span>
-            </div>
-            <Contract />
+            <section className="relative z-10 min-h-screen">
+              <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
+                <Wrench size={18} />
+                <span className="text-sm uppercase tracking-[0.3em]">Contract</span>
+              </div>
+              <Contract />
           </section>
         </div>
       )}

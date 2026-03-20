@@ -2,9 +2,9 @@ import { Github, Instagram, Youtube, Music2, ArrowRight, Smartphone, Code2 } fro
 import Image from "next/image";
 import TechStackPreview from "./TechStackPreview";
 const stats = [
-  { value: "40+", label: "Project Completed" },
+  { value: "20+", label: "Project Completed" },
   { value: "1+", label: "Years Experience" },
-  { value: "0+", label: "Happy Clients" },
+  { value: "2+", label: "Happy Clients" },
 ];
 
 const socials = [
