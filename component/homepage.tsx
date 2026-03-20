@@ -60,8 +60,8 @@ const itemFade: Variants = {
 
 export default function HomePage() {
   return (
-    <main className="mt-6 min-h-screen overflow-hidden bg-black text-white sm:mt-8 md:mt-10">
-      <div className="relative overflow-hidden pt-20 sm:pt-24 lg:pt-28">
+    <main className=" min-h-screen overflow-hidden bg-black text-white">
+      <div className="relative overflow-hidden pt-20 sm:pt-24 lg:pt-20">
         {/* Animated background */}
         <motion.div
           animate={{
@@ -275,10 +275,10 @@ export default function HomePage() {
                 opacity: { delay: 0.4, duration: 0.5 },
                 y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
               }}
-              className="pointer-events-none absolute left-0 top-10 z-[30] flex items-center gap-2 rounded-2xl border border-white/10 bg-[#8f241b]/90 px-3 py-2 shadow-[0_8px_22px_rgba(0,0,0,0.28)] backdrop-blur-md sm:left-2 sm:top-14 md:-left-4 lg:-left-10 lg:top-20"
+              className="pointer-events-none absolute -left-4 top-10 z-[30] flex items-center gap-2 rounded-2xl border border-white/10 bg-[#8f241b]/90 px-3 py-2 shadow-[0_8px_22px_rgba(0,0,0,0.28)] backdrop-blur-md sm:left-2 sm:top-14 md:-left-4 lg:-left-10 lg:top-20"
             >
               <MonitorSmartphone className="h-3.5 w-3.5 text-white sm:h-4 sm:w-4" />
-              <span className="text-sm font-semibold text-white sm:text-base md:text-lg lg:text-2xl">
+              <span className="text-[12px] font-semibold text-white sm:text-base md:text-lg lg:text-2xl">
                 Responsive
               </span>
             </motion.div>

@@ -74,16 +74,22 @@ export default function Header() {
   return (
     <motion.header
       initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed inset-x-0 top-3 z-[1000] px-3 sm:top-4 sm:px-4"
+      animate={{
+        y: 0,
+        opacity: 1,
+        top: scrolled ? 12 : 0,
+      }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      className={`fixed inset-x-0 z-[1000] transition-all duration-300 ${
+        scrolled ? "px-3 sm:px-4" : "px-0"
+      }`}
     >
       <div
-        className={`mx-auto flex w-full max-w-7xl items-center justify-between gap-3 rounded-2xl border px-3 py-3 sm:rounded-full sm:px-5 lg:px-6
+        className={`mx-auto flex w-full max-w-7xl items-center justify-between gap-3 border px-3 py-3 transition-all duration-300 sm:px-5 lg:px-6
         ${
           scrolled
-            ? "border-white/10 bg-[#0f0f0f]/80 shadow-[0_0_30px_rgba(0,0,0,0.35)] backdrop-blur-xl"
-            : "border-white/10 bg-[#1A1A1A]/95"
+            ? "rounded-2xl border-white/10 bg-[#0f0f0f]/75 shadow-[0_0_30px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:rounded-full"
+            : "rounded-none border-transparent bg-transparent shadow-none backdrop-blur-0 py-4"
         }`}
       >
         <motion.button
@@ -102,7 +108,11 @@ export default function Header() {
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#3A3A40] bg-[#2A2A2E] text-sm text-white/85 sm:flex lg:h-12 lg:w-12 lg:rounded-2xl"
+            className={`hidden shrink-0 items-center justify-center border text-sm text-white/85 transition-all duration-300 sm:flex ${
+              scrolled
+                ? "h-10 w-10 rounded-xl border-[#3A3A40] bg-[#2A2A2E] lg:h-12 lg:w-12 lg:rounded-2xl"
+                : "h-10 w-10 rounded-xl border-white/10 bg-white/5 lg:h-12 lg:w-12 lg:rounded-2xl"
+            }`}
           >
             {"</>"}
           </motion.div>
