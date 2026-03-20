@@ -34,29 +34,28 @@ const projects = [
 
 export default function LatestProject() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const isInView = useInView(sectionRef, { amount: 0.2 });
+  const isInView = useInView(sectionRef, { amount: 0.2, once: true });
 
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 overflow-hidden px-6 py-6"
+      className="relative z-10 overflow-hidden px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12"
     >
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="mb-16 text-center [font-family:var(--font-heading)]"
+        className="mb-10 text-center [font-family:var(--font-heading)] sm:mb-12 lg:mb-16"
       >
-        <div className="flex items-center justify-center gap-2 py-5 text-white/70">
-          <FolderKanban size={60} />
-          <h1 className="font-[var(--font-heading)] ml-2 text-5xl font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] md:text-7xl">
+        <div className="flex items-center justify-center gap-2 py-3 text-white/70 sm:gap-3 sm:py-5">
+          <FolderKanban className="h-9 w-9 sm:h-12 sm:w-12 lg:h-[60px] lg:w-[60px]" />
+          <h1 className="ml-1 font-[var(--font-heading)] text-3xl font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] sm:ml-2 sm:text-5xl md:text-6xl lg:text-7xl">
             Latest Projects
           </h1>
         </div>
-
       </motion.div>
 
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 justify-items-center gap-6 sm:gap-7 md:grid-cols-2 lg:gap-8 xl:grid-cols-3">
         {projects.map((project, index) => {
           const glowId = `project-glow-${index}`;
 
@@ -74,7 +73,7 @@ export default function LatestProject() {
                 delay: index * 0.14,
                 ease: "easeOut",
               }}
-              className="group relative w-[400px] cursor-pointer overflow-hidden rounded-[28px] border-5 border-[#ff3b30]/30 bg-[#0d0d0d] shadow-[0_0_18px_rgba(255,59,48,0.08)] transition-[border,box-shadow,transform] duration-200 hover:border-[#ff3b30]/60 hover:shadow-[0_0_35px_rgba(255,59,48,0.18)]"
+              className="group relative flex h-full w-full max-w-[400px] flex-col overflow-hidden rounded-[22px] border-4 border-[#ff3b30]/30 bg-[#0d0d0d] shadow-[0_0_18px_rgba(255,59,48,0.08)] transition-[border,box-shadow,transform] duration-200 hover:border-[#ff3b30]/60 hover:shadow-[0_0_35px_rgba(255,59,48,0.18)] sm:rounded-[24px] lg:rounded-[28px]"
               style={{
                 transformStyle: "preserve-3d",
                 willChange: "transform",
@@ -85,10 +84,10 @@ export default function LatestProject() {
                 className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-200"
               />
 
-              <span className="pointer-events-none absolute inset-0 z-10 rounded-[28px] border border-transparent opacity-0 transition duration-300 group-hover:border-[#ff3b30]/35 group-hover:opacity-100" />
+              <span className="pointer-events-none absolute inset-0 z-10 rounded-[22px] border border-transparent opacity-0 transition duration-300 group-hover:border-[#ff3b30]/35 group-hover:opacity-100 sm:rounded-[24px] lg:rounded-[28px]" />
 
               <div
-                className="relative h-[260px] w-full overflow-hidden"
+                className="relative h-[210px] w-full overflow-hidden sm:h-[230px] md:h-[220px] lg:h-[240px] xl:h-[260px]"
                 style={{ transform: "translateZ(28px)" }}
               >
                 <motion.div
@@ -100,7 +99,7 @@ export default function LatestProject() {
                     src={project.image}
                     alt={project.title}
                     fill
-                    className=" transition duration-500"
+                    className="object-cover transition duration-500"
                   />
                 </motion.div>
 
@@ -108,18 +107,18 @@ export default function LatestProject() {
               </div>
 
               <div
-                className="relative h-[370px] px-6 pb-6 pt-5"
+                className="relative flex min-h-[280px] flex-1 flex-col px-4 pb-5 pt-4 sm:min-h-[300px] sm:px-5 sm:pb-6 sm:pt-5 lg:min-h-[320px] lg:px-6"
                 style={{ transform: "translateZ(20px)" }}
               >
-                <h2 className="font-[var(--font-heading)] text-4xl font-semibold text-white [font-family:var(--font-heading)]">
+                <h2 className="font-[var(--font-heading)] text-2xl font-semibold leading-tight text-white sm:text-3xl lg:text-4xl">
                   {project.title}
                 </h2>
 
-                <p className="mt-4 text-lg leading-8 text-white/75">
+                <p className="mt-3 text-sm leading-7 text-white/75 sm:mt-4 sm:text-base sm:leading-8 lg:text-lg">
                   {project.description}
                 </p>
 
-                <div className="absolute bottom-16 mt-5 flex flex-wrap gap-3 [font-family:var(--font-heading)]">
+                <div className="mt-5 flex flex-wrap gap-2.5 sm:gap-3 [font-family:var(--font-heading)]">
                   {project.tags.map((tag, i) => (
                     <motion.span
                       key={tag}
@@ -133,7 +132,7 @@ export default function LatestProject() {
                         delay: index * 0.14 + i * 0.06,
                         duration: 0.4,
                       }}
-                      className="rounded-full border border-[#ff3b30]/55 bg-[#ff3b30]/15 px-4 py-2 text-base font-medium text-[#ff5a4f] shadow-[0_0_12px_rgba(255,59,48,0.1)] transition duration-300 group-hover:border-[#ff3b30]/75 group-hover:bg-[#ff3b30]/20"
+                      className="rounded-full border border-[#ff3b30]/55 bg-[#ff3b30]/15 px-3 py-1.5 text-sm font-medium text-[#ff5a4f] shadow-[0_0_12px_rgba(255,59,48,0.1)] transition duration-300 group-hover:border-[#ff3b30]/75 group-hover:bg-[#ff3b30]/20 sm:px-4 sm:py-2 sm:text-base"
                     >
                       {tag}
                     </motion.span>
@@ -144,7 +143,7 @@ export default function LatestProject() {
                   href={project.link}
                   whileHover={{ x: 6 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute bottom-5 mt-5 inline-block text-base font-medium text-violet-400 transition hover:text-violet-300 [font-family:var(--font-heading)]"
+                  className="mt-6 inline-block text-sm font-medium text-violet-400 transition hover:text-violet-300 sm:text-base [font-family:var(--font-heading)]"
                 >
                   View more →
                 </motion.a>

@@ -51,81 +51,137 @@ const skillGroups = [
 export default function SkillsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
-  const isInView = useInView(sectionRef, { amount: 0.2 });
-
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement>,
-    glowId: string
-  ) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-
-    const rotateX = ((y - centerY) / centerY) * -4;
-    const rotateY = ((x - centerX) / centerX) * 4;
-
-    card.style.transform = `
-      perspective(1000px)
-      rotateX(${rotateX}deg)
-      rotateY(${rotateY}deg)
-      translateY(-6px)
-    `;
-
-    const glow = card.querySelector(`#${glowId}`) as HTMLSpanElement | null;
-    if (glow) {
-      glow.style.opacity = "1";
-      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,59,48,0.22), transparent 42%)`;
-    }
-  };
-
-  const handleMouseLeave = (
-    e: React.MouseEvent<HTMLDivElement>,
-    glowId: string
-  ) => {
-    const card = e.currentTarget;
-    card.style.transform =
-      "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)";
-
-    const glow = card.querySelector(`#${glowId}`) as HTMLSpanElement | null;
-    if (glow) {
-      glow.style.opacity = "0";
-    }
-  };
+  const isInView = useInView(sectionRef, { amount: 0.2, once: true });
 
   return (
     <section
       ref={sectionRef}
-      className="relative z-10 overflow-hidden px-6  [font-family:var(--font-heading)]"
+      className="relative z-10 overflow-hidden px-4 py-8 sm:px-6 sm:py-10 lg:px-8 [font-family:var(--font-heading)]"
     >
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="mb-16 text-center"
+        className="mb-10 text-center sm:mb-12 lg:mb-16"
       >
-        <h1 className="font-[var(--font-heading)] text-5xl font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] md:text-7xl">
+        <h1 className="font-[var(--font-heading)] text-3xl font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] sm:text-5xl md:text-6xl lg:text-7xl">
           Tech Stack
         </h1>
-        <p className="mt-4 text-white/60">
+        <p className="mt-3 text-sm text-white/60 sm:mt-4 sm:text-base">
           Technologies and tools I work with
         </p>
       </motion.div>
 
       <div className="mx-auto max-w-7xl">
+        {/* Mobile + Tablet */}
+        <div className="flex flex-col gap-4 lg:hidden">
+          {skillGroups.map((group, index) => {
+            const isActive = activeIndex === index;
+
+            return (
+              <motion.div
+                key={group.title}
+                initial={{ opacity: 0, y: 40, scale: 0.98 }}
+                animate={
+                  isInView
+                    ? { opacity: 1, y: 0, scale: 1 }
+                    : { opacity: 0, y: 40, scale: 0.98 }
+                }
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.08,
+                  ease: "easeOut",
+                }}
+                onClick={() => setActiveIndex(index)}
+                className={`group relative overflow-hidden rounded-[22px] border transition-all duration-300 ${
+                  isActive
+                    ? "border-[#ff3b30]/45 shadow-[0_0_24px_rgba(255,59,48,0.12)]"
+                    : "border-white/10"
+                }`}
+              >
+                <motion.img
+                  src={group.image}
+                  alt={group.title}
+                  animate={isActive ? { scale: 1.04 } : { scale: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/20" />
+
+                <div className="relative min-h-[220px] p-5 sm:min-h-[250px] sm:p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+                      {group.title}
+                    </h2>
+
+                    <span
+                      className={`mt-1 shrink-0 rounded-full border px-3 py-1 text-xs transition ${
+                        isActive
+                          ? "border-[#ff3b30]/60 bg-[#ff3b30]/15 text-[#ff6b61]"
+                          : "border-white/15 bg-white/5 text-white/70"
+                      }`}
+                    >
+                      {isActive ? "Open" : "Tap"}
+                    </span>
+                  </div>
+
+                  <motion.div
+                    initial={false}
+                    animate={
+                      isActive
+                        ? { opacity: 1, height: "auto", marginTop: 16 }
+                        : { opacity: 0.92, height: "auto", marginTop: 14 }
+                    }
+                    transition={{ duration: 0.3 }}
+                  >
+                    <p
+                      className={`max-w-2xl leading-7 text-white/80 transition-all duration-300 sm:text-lg sm:leading-8 ${
+                        isActive
+                          ? "line-clamp-none"
+                          : "line-clamp-2 text-sm sm:text-base"
+                      }`}
+                    >
+                      {group.description}
+                    </p>
+
+                    <div className="mt-4 flex flex-wrap gap-2.5 sm:mt-5 sm:gap-3">
+                      {group.skills.map((skill, skillIndex) => (
+                        <motion.span
+                          key={skill}
+                          initial={{ opacity: 0, scale: 0.85 }}
+                          animate={
+                            isActive && isInView
+                              ? { opacity: 1, scale: 1 }
+                              : { opacity: 0.9, scale: 1 }
+                          }
+                          transition={{
+                            duration: 0.25,
+                            delay: 0.08 + skillIndex * 0.03,
+                          }}
+                          className="rounded-full border border-[#ff3b30]/75 bg-white/10 px-3 py-1.5 text-xs text-[#ff6b61] backdrop-blur-sm transition duration-300 hover:bg-[#ff3b30]/15 sm:px-4 sm:py-2 sm:text-sm"
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Desktop */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-          className="flex h-[520px] gap-4 overflow-hidden rounded-[28px]"
+          className="hidden h-[520px] gap-4 overflow-hidden rounded-[28px] lg:flex xl:h-[560px]"
         >
           {skillGroups.map((group, index) => {
             const isActive = activeIndex === index;
-            const glowId = `skill-glow-${index}`;
 
             return (
               <motion.div
@@ -152,10 +208,7 @@ export default function SkillsSection() {
                   willChange: "transform, flex",
                 }}
               >
-                <span
-                  id={glowId}
-                  className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-200"
-                />
+                <span className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-hover:bg-[radial-gradient(circle_at_center,rgba(255,59,48,0.14),transparent_45%)]" />
 
                 <span
                   className={`pointer-events-none absolute inset-0 z-10 rounded-[28px] border transition duration-300 ${
@@ -183,9 +236,7 @@ export default function SkillsSection() {
                 {!isActive && (
                   <motion.div
                     initial={{ opacity: 0 }}
-                    animate={
-                      isInView ? { opacity: 1 } : { opacity: 0 }
-                    }
+                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ duration: 0.4 }}
                     className="absolute inset-0 flex items-end justify-center pb-10"
                   >
@@ -196,7 +247,7 @@ export default function SkillsSection() {
                 )}
 
                 <div
-                  className={`absolute inset-x-0 bottom-0 p-8 transition-all duration-500 ${
+                  className={`absolute inset-x-0 bottom-0 p-6 xl:p-8 transition-all duration-500 ${
                     isActive
                       ? "translate-y-0 opacity-100"
                       : "pointer-events-none translate-y-8 opacity-0"
@@ -211,7 +262,7 @@ export default function SkillsSection() {
                         : { opacity: 0, y: 20 }
                     }
                     transition={{ duration: 0.35 }}
-                    className="text-4xl font-semibold text-white"
+                    className="text-3xl font-semibold text-white xl:text-4xl"
                   >
                     {group.title}
                   </motion.h2>
@@ -224,7 +275,7 @@ export default function SkillsSection() {
                         : { opacity: 0, scaleX: 0 }
                     }
                     transition={{ duration: 0.35, delay: 0.05 }}
-                    className="mt-4 h-[2px] w-40 origin-left bg-white/40"
+                    className="mt-4 h-[2px] w-32 origin-left bg-white/40 xl:w-40"
                   />
 
                   <motion.p
@@ -235,12 +286,12 @@ export default function SkillsSection() {
                         : { opacity: 0, y: 24 }
                     }
                     transition={{ duration: 0.4, delay: 0.08 }}
-                    className="mt-6 max-w-2xl text-lg leading-8 text-white/85"
+                    className="mt-5 max-w-2xl text-base leading-7 text-white/85 xl:mt-6 xl:text-lg xl:leading-8"
                   >
                     {group.description}
                   </motion.p>
 
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-5 flex flex-wrap gap-2.5 xl:mt-6 xl:gap-3">
                     {group.skills.map((skill, skillIndex) => (
                       <motion.span
                         key={skill}
