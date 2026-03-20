@@ -21,7 +21,7 @@ export default function TypingTitle() {
 
   return (
     <div className="relative overflow-hidden font-[var(--font-heading)] text-4xl md:text-7xl uppercase tracking-[0.1em] text-white">
-        <span className="inline-block animate-reveal drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+        <span className="inline-block font-[var(--font-heading)] animate-reveal drop-shadow-[0_0_20px_rgba(255,255,255,0.2)]">
             {displayText}
         </span>
         <span className="animate-blink ml-2 text-white/70">|</span>

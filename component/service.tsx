@@ -1,6 +1,6 @@
 "use client";
 
-import { Code2, PenTool, Cpu, Bot } from "lucide-react";
+import { Code2, PenTool, Cpu, Bot, Briefcase } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
@@ -100,9 +100,13 @@ export default function ServicesPage() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="mb-14 text-center"
         >
-          <h1 className="text-5xl font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] md:text-7xl">
-            My Services
-          </h1>
+          <div className="mb-4 flex items-center justify-center gap-2 bg-black text-white/70">    
+              <Briefcase size={60} />
+              <h1 className="text-5xl ml-2 font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] md:text-7xl">
+                My Services
+              </h1>
+            </div>
+
           <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/65 md:text-lg">
             I provide practical digital solutions focused on performance, clean
             user experience, and reliable implementation.

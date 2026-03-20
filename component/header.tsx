@@ -107,7 +107,7 @@ export default function Header() {
               whileHover={{ y: -4, scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleScrollToSection(item.id)}
-              className={`relative rounded-2xl px-4 py-2 transition duration-300 ${
+              className={`relative rounded-2xl px-4 py-2 transition duration-300 cursor-pointer ${
                 isActive
                   ? "bg-[#ff3b30]/15 text-[#FF3B30] shadow-[0_0_18px_rgba(255,59,48,0.18)]"
                   : "text-white hover:bg-[#ff3b30]/10"

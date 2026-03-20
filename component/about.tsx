@@ -47,7 +47,7 @@ function RevealOnScroll({
 
 export default function AboutPage() {
   return (
-    <main className="overflow-hidden bg-black pt-20 text-white">
+    <main className="overflow-hidden bg-black pt-5 text-white">
       <RevealOnScroll>
         <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
           <User size={60} />

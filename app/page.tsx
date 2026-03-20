@@ -92,7 +92,7 @@ export default function Home() {
       <div className="absolute left-1/2 top-1/2 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-[90px] animate-pulseSlow delay-300" />
 
       {!isDone && (
-        <div className="relative z-10 flex min-h-screen items-center justify-center px-6 transition-all duration-700">
+        <div className="relative z-10  font-[var(--font-heading)] flex min-h-screen items-center justify-center px-6 transition-all duration-700">
           <div className="text-center">
             <div className="mb-8 flex flex-wrap items-center justify-center gap-3 md:gap-4">
               {loaderSkills.map((skill, index) => {
@@ -101,7 +101,7 @@ export default function Home() {
                 return (
                   <div
                     key={skill.label}
-                    className={`animate-floatIn flex items-center gap-2 rounded-2xl border px-5 py-4 text-sm font-semibold tracking-[0.18em] backdrop-blur-md md:px-6 md:py-5 md:text-base ${skill.className}`}
+                    className={`animate-floatIn flex items-center gap-2 rounded-2xl border px-5 py-4 text-sm tracking-[0.18em] backdrop-blur-md md:px-6 md:py-5 md:text-base ${skill.className}`}
                     style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <Icon size={18} className="shrink-0" />
@@ -111,7 +111,7 @@ export default function Home() {
               })}
             </div>
 
-            <h1 className="font-[var(--font-heading)] text-4xl uppercase tracking-[0.1em] text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.12)] md:text-7xl">
+            <h1 className="text-4xl uppercase tracking-[0.1em] text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.12)] md:text-7xl">
               <TypingTitle />
             </h1>
 
@@ -128,7 +128,7 @@ export default function Home() {
                 />
               </div>
 
-              <div className="mt-4 text-center font-[var(--font-mono)] text-sm text-white/55 md:text-base">
+              <div className="mt-4 text-center text-sm text-white/55 md:text-base">
                 {String(percent).padStart(2, "0")}%
               </div>
             </div>
@@ -151,20 +151,10 @@ export default function Home() {
           </section>
 
           <section id="services" className="relative bg-black scroll-mt-32">
-            <div className="mb-4 flex items-center justify-center gap-2 bg-black text-white/70">
-              <Briefcase size={18} />
-              <span className="text-sm uppercase tracking-[0.3em]">Services</span>
-            </div>
             <ServicesPage />
           </section>
 
           <section id="project" className="relative min-h-screen bg-black scroll-mt-32">
-            <div className="flex items-center justify-center gap-2 py-5 text-white/70">
-              <FolderKanban size={18} />
-              <span className="text-sm uppercase tracking-[0.3em]">
-                Latest Projects
-              </span>
-            </div>
             <LastestProject />
           </section>
 

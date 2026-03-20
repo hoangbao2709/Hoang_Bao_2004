@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { FolderKanban } from "lucide-react";
 
 const projects = [
   {
@@ -46,9 +47,13 @@ export default function LatestProject() {
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="mb-16 text-center [font-family:var(--font-heading)]"
       >
-        <h1 className="font-[var(--font-heading)] text-5xl font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] md:text-7xl">
-          Latest Projects
-        </h1>
+        <div className="flex items-center justify-center gap-2 py-5 text-white/70">
+          <FolderKanban size={60} />
+          <h1 className="font-[var(--font-heading)] ml-2 text-5xl font-semibold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.08)] md:text-7xl">
+            Latest Projects
+          </h1>
+        </div>
+
       </motion.div>
 
       <div className="flex flex-wrap justify-center gap-8">
