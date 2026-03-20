@@ -1,65 +1,202 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import Contract from "@/component/contract";
+import TypingTitle from "../component/TypingTitle";
+import Header from "../component/header";
+import HomePage from "../component/homepage";
+import About from "../component/about";
+import ServicesPage from "../component/service";
+import LastestProject from "../component/lastestproject";
+import SkillsSection from "../component/skill";
+import ExperienceSection from "@/component/experience";
+import {
+  Braces,
+  FileCode2,
+  Palette,
+  Database,
+  Code2,
+  LoaderCircle,
+  User,
+  Briefcase,
+  FolderKanban,
+  Wrench,
+  Cpu,
+  Globe,
+  Hammer,
+} from "lucide-react";
+const loaderSkills = [
+  {
+    label: "JS",
+    icon: Braces,
+    className:
+      "border-yellow-400/70 text-yellow-300 bg-yellow-400/10 shadow-[0_0_25px_rgba(250,204,21,0.18)]",
+  },
+  {
+    label: "HTML",
+    icon: FileCode2,
+    className:
+      "border-orange-500/70 text-orange-300 bg-orange-500/10 shadow-[0_0_25px_rgba(249,115,22,0.18)]",
+  },
+  {
+    label: "CSS",
+    icon: Palette,
+    className:
+      "border-blue-500/70 text-blue-300 bg-blue-500/10 shadow-[0_0_25px_rgba(59,130,246,0.18)]",
+  },
+  {
+    label: "PHP",
+    icon: Database,
+    className:
+      "border-indigo-500/70 text-indigo-300 bg-indigo-500/10 shadow-[0_0_25px_rgba(99,102,241,0.18)]",
+  },
+  {
+    label: "PY",
+    icon: Code2,
+    className:
+      "border-sky-400/70 text-sky-300 bg-sky-400/10 shadow-[0_0_25px_rgba(56,189,248,0.18)]",
+  },
+];
 
 export default function Home() {
+  const [percent, setPercent] = useState(0);
+  const [isDone, setIsDone] = useState(false);
+
+  useEffect(() => {
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += Math.floor(Math.random() * 4) + 1;
+
+      if (current >= 100) {
+        current = 100;
+        setPercent(current);
+        clearInterval(timer);
+
+        setTimeout(() => {
+          setIsDone(true);
+        }, 500);
+      } else {
+        setPercent(current);
+      }
+    }, 60);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const progressWidth = useMemo(() => `${percent}%`, [percent]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="relative min-h-screen overflow-hidden bg-black">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_40%,rgba(99,102,241,0.10)_0%,transparent_40%),radial-gradient(circle_at_60%_60%,rgba(168,85,247,0.08)_0%,transparent_45%),radial-gradient(circle_at_center,rgba(255,255,255,0.04)_0%,rgba(0,0,0,1)_70%)] animate-gradientMove" />
+
+      <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[130px] animate-pulseSlow" />
+      <div className="absolute left-1/2 top-1/2 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-[90px] animate-pulseSlow delay-300" />
+
+      {!isDone && (
+        <div className="relative z-10 flex min-h-screen items-center justify-center px-6 transition-all duration-700">
+          <div className="text-center">
+            <div className="mb-8 flex flex-wrap items-center justify-center gap-3 md:gap-4">
+              {loaderSkills.map((skill, index) => {
+                const Icon = skill.icon;
+
+                return (
+                  <div
+                    key={skill.label}
+                    className={`animate-floatIn flex items-center gap-2 rounded-2xl border px-5 py-4 text-sm font-semibold tracking-[0.18em] backdrop-blur-md md:px-6 md:py-5 md:text-base ${skill.className}`}
+                    style={{ animationDelay: `${index * 120}ms` }}
+                  >
+                    <Icon size={18} className="shrink-0" />
+                    <span>{skill.label}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <h1 className="font-[var(--font-heading)] text-4xl uppercase tracking-[0.1em] text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.12)] md:text-7xl">
+              <TypingTitle />
+            </h1>
+
+            <div className="mt-6 flex animate-fadeIn items-center justify-center gap-2 text-center text-[11px] uppercase tracking-[0.45em] text-white/45 md:text-xs">
+              <LoaderCircle size={16} className="animate-spin" />
+              <span>Loading Experience...</span>
+            </div>
+
+            <div className="mx-auto mt-8 w-[220px] md:w-[320px]">
+              <div className="h-[3px] w-full overflow-hidden rounded-full bg-white/10">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-violet-400 to-white shadow-[0_0_20px_rgba(129,140,248,0.7)] transition-all duration-200 ease-out"
+                  style={{ width: progressWidth }}
+                />
+              </div>
+
+              <div className="mt-4 text-center font-[var(--font-mono)] text-sm text-white/55 md:text-base">
+                {String(percent).padStart(2, "0")}%
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      )}
+
+      {isDone && (
+        <div>
+          <div className="relative z-10 flex min-h-screen items-center justify-center px-6 transition-all duration-700">
+            <Header />
+            <HomePage />
+            
+       
+          </div>
+
+          <section className="relative z-10 ">
+            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
+              <User size={18} />
+              <span className="text-sm uppercase tracking-[0.3em]">About Me</span>
+            </div>
+            <About />
+          </section>
+
+          <section className="relative z-20 bg-black ">
+            <div className="mb-4 flex items-center justify-center gap-2 text-white/70 bg-black">
+              <Briefcase size={18} />
+              <span className="text-sm uppercase tracking-[0.3em]">Services</span>
+            </div>
+            <ServicesPage />
+          </section>
+
+          <section className="relative z-10 min-h-screen bg-black">
+            <div className=" flex items-center justify-center gap-2 py-5 text-white/70">
+              <FolderKanban size={18} />
+              <span className="text-sm uppercase tracking-[0.3em]">
+                Latest Projects
+              </span>
+            </div>
+            <LastestProject />
+          </section>
+
+
+          <section className="relative z-10 bg-black">
+            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
+              <Wrench size={18} />
+              <span className="text-sm uppercase tracking-[0.3em]">Skills</span>
+            </div>
+            <SkillsSection />
+          </section>
+          <section className="relative z-10 min-h-screen">
+            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
+              <Wrench size={18} />
+              <span className="text-sm uppercase tracking-[0.3em]">Experience</span>
+            </div>
+            <ExperienceSection />
+          </section>
+                    <section className="relative z-10 min-h-screen">
+            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
+              <Wrench size={18} />
+              <span className="text-sm uppercase tracking-[0.3em]">Contract</span>
+            </div>
+            <Contract />
+          </section>
         </div>
-      </main>
-    </div>
+      )}
+    </main>
   );
 }
