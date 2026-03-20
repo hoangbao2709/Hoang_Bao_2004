@@ -1,6 +1,19 @@
-import { Github, Instagram, Youtube, Music2, ArrowRight, Smartphone, Code2 } from "lucide-react";
+"use client";
+
+import {
+  Github,
+  Instagram,
+  Music2,
+  ArrowRight,
+  Download,
+  Facebook,
+  MonitorSmartphone,
+  Code2,
+} from "lucide-react";
 import Image from "next/image";
 import TechStackPreview from "./TechStackPreview";
+import { motion, type Variants } from "framer-motion";
+
 const stats = [
   { value: "20+", label: "Project Completed" },
   { value: "1+", label: "Years Experience" },
@@ -8,103 +21,284 @@ const stats = [
 ];
 
 const socials = [
-  { icon: Github, href: "#", label: "GitHub" },
+  { icon: Github, href: "https://github.com/hoangbao2709", label: "GitHub" },
   { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  { icon: Facebook, href: "https://www.facebook.com/hoang.bao.311907/", label: "Facebook" },
   { icon: Music2, href: "#", label: "TikTok" },
 ];
 
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" as const },
+  },
+};
+
+const itemFade: Variants = {
+  hidden: { opacity: 0, scale: 0.96 },
+  show: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.7, ease: "easeOut" as const },
+  },
+};
+
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="relative overflow-hidden mt-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,59,48,0.09),transparent_24%),radial-gradient(circle_at_75%_40%,rgba(255,59,48,0.08),transparent_20%),radial-gradient(circle_at_center,rgba(255,255,255,0.02),transparent_35%)]" />
-        <div className="absolute right-24 top-28 h-72 w-72 rounded-full bg-red-500/10 blur-[120px]" />
-        <div className="absolute left-24 bottom-12 h-56 w-56 rounded-full bg-red-500/10 blur-[120px]" />
+    <main className="min-h-screen bg-black text-white mt-10 overflow-hidden">
+      <div className="relative overflow-hidden pt-24">
+        {/* Animated background */}
+        <motion.div
+          animate={{
+            opacity: [0.7, 1, 0.75],
+            scale: [1, 1.08, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,rgba(255,59,48,0.12),transparent_24%),radial-gradient(circle_at_82%_30%,rgba(255,59,48,0.08),transparent_18%),radial-gradient(circle_at_50%_65%,rgba(255,255,255,0.03),transparent_28%)]"
+        />
 
-        <section className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-10 md:px-10 lg:grid-cols-2">
+        <motion.div
+          animate={{ y: [0, -20, 0], x: [0, 8, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[-40px] top-24 h-72 w-72 rounded-full bg-[#ff3b30]/10 blur-[130px]"
+        />
+
+        <motion.div
+          animate={{ y: [0, 22, 0], x: [0, -10, 0] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-[-30px] top-36 h-80 w-80 rounded-full bg-[#ff3b30]/10 blur-[150px]"
+        />
+
+        <motion.div
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-10 left-1/3 h-56 w-56 rounded-full bg-white/5 blur-[120px]"
+        />
+
+        <motion.section
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 pb-8 md:px-10 lg:grid-cols-[1.15fr_0.85fr]"
+        >
           <div className="z-10">
-            <p className="mb-3 text-3xl font-semibold tracking-tight text-white/90 md:text-4xl">
-              Welcome
-            </p>
+            <motion.div
+              variants={itemUp}
+              className="inline-flex [font-family:var(--font-heading)] items-center rounded-full border border-white/10 bg-white/[0.03] px-4 py-2"
+            >
+              <span className="font-[var(--font-ui)] text-sm uppercase tracking-[0.24em] text-white/70">
+                Welcome
+              </span>
+            </motion.div>
 
-            <h1 className="max-w-3xl text-5xl font-[var(--font-heading)] font-bold leading-[0.95] text-[#ff3b30] drop-shadow-[0_0_18px_rgba(255,59,48,0.28)] md:text-7xl">
-              Hello Everyone I&apos;m Hoang Bao
-            </h1>
+            <motion.h1
+              variants={itemUp}
+              className="mt-6 max-w-4xl [font-family:var(--font-heading)] font-[var(--font-heading)] text-5xl font-bold uppercase leading-[0.9] tracking-[0.01em] text-white sm:text-6xl lg:text-7xl"
+            >
+              Hello Everyone
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="mt-2 block text-[#ff3b30] drop-shadow-[0_0_18px_rgba(255,59,48,0.35)]"
+              >
+                I&apos;m Hoang Bao
+              </motion.span>
+            </motion.h1>
 
-            <p className="mt-7 max-w-xl text-lg leading-8 text-white/60 md:text-xl">
-              I am a web developer focused on building modern, responsive, and efficient
-              websites. I also enjoy working close to the system layer with embedded and
-              low-level development.
-            </p>
+            <motion.p
+              variants={itemUp}
+              className="mt-8 max-w-2xl text-lg leading-8 text-white/60 md:text-xl"
+            >
+              I am a web developer focused on building modern, responsive, and
+              efficient websites. I also enjoy working close to the system layer
+              with embedded and low-level development.
+            </motion.p>
 
-            <div className="mt-10 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
-              {stats.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-[28px] border border-white/8 bg-[#0b0b0b] px-6 py-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
-                >
-                  <div className="text-5xl font-bold tracking-tight text-[#ff3b30] drop-shadow-[0_0_12px_rgba(255,59,48,0.25)]">
-                    {item.value}
-                  </div>
-                  <div className="mt-3 text-lg text-white/45">{item.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
+            <motion.div
+              variants={itemUp}
+              className="mt-10 flex flex-wrap gap-4 [font-family:var(--font-heading)]"
+            >
+              <motion.a
                 href="#contact"
-                className="inline-flex items-center gap-3 rounded-full bg-[#ff3b30] px-8 py-4 text-lg font-semibold text-black transition hover:scale-[1.02] hover:shadow-[0_0_28px_rgba(255,59,48,0.35)]"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-3 rounded-full bg-[#ff3b30] px-8 py-4 font-[var(--font-ui)] hover:scale-105 text-base font-semibold uppercase tracking-[0.12em] text-black transition duration-300 hover:shadow-[0_0_28px_rgba(255,59,48,0.35)]"
               >
-                Hire me
-                <ArrowRight className="h-5 w-5" />
-              </a>
+                Hire Me
+                <motion.div
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.4, repeat: Infinity }}
+                >
+                  <ArrowRight className="h-5 w-5" />
+                </motion.div>
+              </motion.a>
 
-              <a
+              <motion.a
                 href="#"
-                className="inline-flex items-center rounded-full border border-[#ff3b30]/50 px-8 py-4 text-lg font-semibold text-white transition hover:bg-[#ff3b30]/10 hover:shadow-[0_0_20px_rgba(255,59,48,0.18)]"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="group relative inline-flex h-[62px] items-center justify-center overflow-hidden rounded-full border border-[#ff8a84]/50 bg-[#050505] px-9 font-[var(--font-ui)] text-base font-semibold text-white shadow-[0_0_18px_rgba(255,59,48,0.14)]"
               >
-                Download CV
-              </a>
-            </div>
-            
+                <span className="absolute inset-y-[3px] left-[-10%] z-0 w-[120%] -translate-x-[118%] skew-x-[-20deg] rounded-l-full bg-[#f1f1f1] transition-transform duration-2000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0" />
 
+                <span className="absolute inset-0 rounded-full border border-[#ffb3ae]/35" />
 
+                <span className="relative z-10 flex items-center gap-3">
+                  <span className="transition-colors duration-300 group-hover:text-[#6d6d6d]">
+                    Download CV
+                  </span>
+                  <motion.span
+                    animate={{ x: [0, 2, 0] }}
+                    transition={{ duration: 1.2, repeat: Infinity }}
+                    className="transition-colors duration-300 group-hover:text-[#6d6d6d]"
+                  >
+                    <Download className="h-5 w-5" />
+                  </motion.span>
+                </span>
+              </motion.a>
+            </motion.div>
+
+            <motion.div
+              variants={containerVariants}
+              className="mt-12 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3"
+            >
+              {stats.map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  variants={itemFade}
+                  whileHover={{ y: -8, scale: 1.03 }}
+                  transition={{ duration: 0.3 }}
+                  className="rounded-[30px] border border-white/10 bg-[#0c0c0c]/90 px-6 py-7 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-[#ff3b30]/30 hover:shadow-[0_0_18px_rgba(255,59,48,0.12)]"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.7 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.15, duration: 0.5 }}
+                    className="font-[var(--font-heading)] text-4xl font-bold text-[#ff3b30] drop-shadow-[0_0_10px_rgba(255,59,48,0.28)] md:text-5xl"
+                  >
+                    {item.value}
+                  </motion.div>
+                  <div className="mt-3 font-[var(--font-ui)] text-xs uppercase tracking-[0.18em] text-white/45 md:text-sm">
+                    {item.label}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
 
-            <div className="relative z-10 flex items-center justify-center">
-                <div className="relative">
+          <motion.div
+            variants={itemFade}
+            className="relative z-50 flex items-center justify-center cursor-pointer"
+          >
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="relative"
+            >
+              <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[#ff3b30]/15 blur-2xl" />
 
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="relative rounded-[34px] border border-[#ff3b30]/35 bg-[#0c0c0c] p-3 shadow-[0_0_35px_rgba(255,59,48,0.18)]"
+              >
+                <div className="pointer-events-none absolute inset-0 rounded-[34px] bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent_35%)]" />
 
-                    <div className="rounded-xl border-4 border-[#ff3b30] p-1 shadow-[0_0_25px_rgba(255,59,48,0.35)]">
-                        <Image
-                        src="/avt.jpg"
-                        alt="Hoang Bao Avatar"
-                        width={180}
-                        height={180}
-                        priority
-                        className="w-[400px] rounded-xl object-cover"
-                        />
-                    </div>
-                  <div className="mt-14 w-full flex items-between justify-around gap-4 px-5">
-                    {socials.map(({ icon: Icon, href, label }) => (
-                      <a
-                        key={label}
-                        href={href}
-                        aria-label={label}
-                        className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-[#090909] text-white/80 transition hover:-translate-y-1 hover:border-[#ff3b30]/40 hover:text-[#ff3b30] hover:shadow-[0_0_18px_rgba(255,59,48,0.18)]"
-                      >
-                        <Icon className="h-6 w-6" />
-                      </a>
-                    ))}
-                  </div>
+                {/* khung ảnh */}
+                <div className="relative overflow-hidden rounded-[26px]">
+                  <motion.div
+                    animate={{ scale: [1, 1.01, 1] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <Image
+                      src="/avt.jpg"
+                      alt="Hoang Bao Avatar"
+                      width={520}
+                      height={620}
+                      priority
+                      className="h-auto w-[320px] rounded-[26px] object-cover sm:w-[380px] lg:w-[420px]"
+                    />
+                  </motion.div>
                 </div>
-            </div>
-        </section>
-        <TechStackPreview/>
+              </motion.div>
+
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="show"
+                className="relative z-[60] mt-8 flex items-center justify-center gap-4"
+              >
+                {socials.map(({ icon: Icon, href, label }, index) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    variants={itemFade}
+                    whileHover={{ y: -6, scale: 1.12 }}
+                    whileTap={{ scale: 0.92 }}
+                    transition={{ duration: 0.25, delay: index * 0.05 }}
+                    className="flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-[#090909] text-white/80 cursor-pointer hover:border-[#ff3b30]/45 hover:text-[#ff3b30] hover:shadow-[0_0_18px_rgba(255,59,48,0.18)]"
+                  >
+                    <Icon className="pointer-events-none h-6 w-6" />
+                  </motion.a>
+                ))}
+              </motion.div>
+            </motion.div>                  
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: [0, -4, 0] }}
+              transition={{
+                opacity: { delay: 0.4, duration: 0.5 },
+                y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className="pointer-events-none absolute -left-20 top-20 z-[30] flex items-center gap-2 rounded-[18px] border border-white/10 bg-[#8f241b]/90 px-3 py-2 shadow-[0_8px_22px_rgba(0,0,0,0.28)] backdrop-blur-md"
+            >
+              <MonitorSmartphone className="h-4 w-4 text-white" />
+              <span className="text-2xl font-semibold text-white">Responsive</span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: [0, 4, 0] }}
+              transition={{
+                opacity: { delay: 0.6, duration: 0.5 },
+                y: { duration: 3.4, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className="pointer-events-none absolute bottom-40 -right-10 z-[30] flex items-center gap-2 rounded-[18px] border border-white/12 bg-[#d891a7]/88 px-3 py-2 shadow-[0_10px_24px_rgba(0,0,0,0.22)] backdrop-blur-md"
+            >
+              <Code2 className="h-4 w-4 text-white" />
+              <span className="text-xl font-semibold text-white">Clean code</span>
+            </motion.div>
+          </motion.div>
+        </motion.section>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8 }}
+        >
+          <TechStackPreview />
+        </motion.div>
       </div>
-      
     </main>
   );
 }

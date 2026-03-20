@@ -8,8 +8,8 @@ import HomePage from "../component/homepage";
 import About from "../component/about";
 import ServicesPage from "../component/service";
 import LastestProject from "../component/lastestproject";
-import SkillsSection from "../component/skill";
-import ExperienceSection from "@/component/experience";
+import Skillsdiv from "../component/skill";
+import Experiencediv from "@/component/experience";
 import {
   Braces,
   FileCode2,
@@ -21,10 +21,8 @@ import {
   Briefcase,
   FolderKanban,
   Wrench,
-  Cpu,
-  Globe,
-  Hammer,
 } from "lucide-react";
+
 const loaderSkills = [
   {
     label: "JS",
@@ -87,7 +85,7 @@ export default function Home() {
   const progressWidth = useMemo(() => `${percent}%`, [percent]);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black">
+    <main className="relative min-h-screen overflow-hidden bg-black scroll-smooth">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_40%,rgba(99,102,241,0.10)_0%,transparent_40%),radial-gradient(circle_at_60%_60%,rgba(168,85,247,0.08)_0%,transparent_45%),radial-gradient(circle_at_center,rgba(255,255,255,0.04)_0%,rgba(0,0,0,1)_70%)] animate-gradientMove" />
 
       <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[130px] animate-pulseSlow" />
@@ -140,29 +138,28 @@ export default function Home() {
 
       {isDone && (
         <div>
-          <div className="relative z-10 flex min-h-screen items-center justify-center px-6 transition-all duration-700">
-            <Header />
-            <HomePage />
-          </div>
+          <Header />
 
-          <section className="relative z-10 ">
-            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
-              <User size={18} />
-              <span className="text-sm uppercase tracking-[0.3em]">About Me</span>
+          <section id="home" className="scroll-mt-32">
+            <div className="relative z-[100] flex min-h-screen items-center justify-center px-6 transition-all duration-700">
+              <HomePage />
             </div>
+          </section>
+
+          <section id="about" className="relative scroll-mt-32">
             <About />
           </section>
 
-          <section className="relative z-20 bg-black ">
-            <div className="mb-4 flex items-center justify-center gap-2 text-white/70 bg-black">
+          <section id="services" className="relative bg-black scroll-mt-32">
+            <div className="mb-4 flex items-center justify-center gap-2 bg-black text-white/70">
               <Briefcase size={18} />
               <span className="text-sm uppercase tracking-[0.3em]">Services</span>
             </div>
             <ServicesPage />
           </section>
 
-          <section className="relative z-10 min-h-screen bg-black">
-            <div className=" flex items-center justify-center gap-2 py-5 text-white/70">
+          <section id="project" className="relative min-h-screen bg-black scroll-mt-32">
+            <div className="flex items-center justify-center gap-2 py-5 text-white/70">
               <FolderKanban size={18} />
               <span className="text-sm uppercase tracking-[0.3em]">
                 Latest Projects
@@ -171,27 +168,16 @@ export default function Home() {
             <LastestProject />
           </section>
 
+          <section id="skill" className="relative bg-black scroll-mt-32">
+            <Skillsdiv />
+          </section>
 
-          <section className="relative z-10 bg-black">
-            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
-              <Wrench size={18} />
-              <span className="text-sm uppercase tracking-[0.3em]">Skills</span>
-            </div>
-            <SkillsSection />
+          <section id="experience" className="relative min-h-screen scroll-mt-32">
+            <Experiencediv />
           </section>
-          <section className="relative z-10 min-h-screen">
-            <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
-              <Wrench size={18} />
-              <span className="text-sm uppercase tracking-[0.3em]">Experience</span>
-            </div>
-            <ExperienceSection />
-          </section>
-            <section className="relative z-10 min-h-screen">
-              <div className="mb-4 flex items-center justify-center gap-2 text-white/70">
-                <Wrench size={18} />
-                <span className="text-sm uppercase tracking-[0.3em]">Contract</span>
-              </div>
-              <Contract />
+
+          <section id="contact" className="relative min-h-screen scroll-mt-32">
+            <Contract />
           </section>
         </div>
       )}
